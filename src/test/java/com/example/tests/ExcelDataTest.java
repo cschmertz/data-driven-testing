@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -26,10 +27,11 @@ public class ExcelDataTest {
     @Test
     public void testEmployeesExcel() {
         // Validate some entries in the Employees.xlsx
-        assertEquals("Kariotta", employeesExcel.getCellData(1, 1)); // First name
-        assertEquals("McKernan", employeesExcel.getCellData(1, 2)); // Last name
-        assertEquals("E567890", employeesExcel.getCellData(1, 3)); // Driver license
-        assertEquals("1", employeesExcel.getCellData(1, 4)); // Company name
+        List<List<String>> employeesData = employeesExcel.getAllData();
+        assertEquals("Kariotta", employeesData.get(1).get(1)); // First name
+        assertEquals("McKernan", employeesData.get(1).get(2)); // Last name
+        assertEquals("E567890", employeesData.get(1).get(3)); // Driver license
+        assertEquals("1", employeesData.get(1).get(4)); // Company nam
     }
 
     @Test

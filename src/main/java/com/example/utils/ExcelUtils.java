@@ -1,10 +1,13 @@
 package com.example.utils;
 
+import com.example.model.Company;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExcelUtils {
 
@@ -35,6 +38,23 @@ public class ExcelUtils {
     public int getColumnCount() {
         return sheet.getRow(0).getPhysicalNumberOfCells();
     }
+
+    public List<List<String>> getAllData() {
+        List<List<String>> tableData = new ArrayList<>();
+        int rowCount = getRowCount();
+        DataFormatter formatter = new DataFormatter();
+        for (int i = 0; i < rowCount; i++) {
+            Row row = sheet.getRow(i);
+            List<String> rowData = new ArrayList<>();
+            for (int j = 0; j < getColumnCount(); j++) {
+                Cell cell = row.getCell(j);
+                rowData.add(formatter.formatCellValue(cell));
+            }
+            tableData.add(rowData);
+        }
+        return tableData;
+    }
+
 
     public void close() {
         try {
